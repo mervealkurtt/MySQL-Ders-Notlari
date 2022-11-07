@@ -61,6 +61,11 @@ FROM tablo adi WHERE (kosul) BETWEEN id1 and id2
 Between'de kullanilan sinir degerler dahildir
 */
 
+/*
+AND : Belirtilen sartlarin her ikisi de gercekleiyorsa o kayit listelenir.
+	  Bir tanesi gerceklesmezse listelenmez.
+*/
+
 -- SORU 05 : id'si 1002 ile 1005 arasinda olan personel bilgilerini listeleyin
 select * from personel where id between 1002 and 1005;
 select * from personel where id>=1002 and id<=1005;
@@ -68,6 +73,9 @@ select * from personel where id>=1002 and id<=1005;
 -- SORU 06 : Derya Soylu ile Yavuz Bal arasindaki olan personel bilgilerini listeleyin
 select * from personel where isim between 'Derya Soylu' and 'Yavuz Bal';
 
+/*
+OR : Belirtilen sartlardan biri gerceklesirse, kayit listelenir.
+*/
 
 -- in
 /*
@@ -122,7 +130,8 @@ select * from personel where isim like 'A_____A%';
 
 
 
-/* *************** SELECT - REGEXP_LIKE ***************
+
+/* ****************** SELECT - REGEXP_LIKE ******************
    Daha karmasik pattern ile sorgulama islemi icin REGEXP_LIKE kullanilabilir.
    c  : case-sensitive demektir
    i  : case-insensitive demektir ve default incase-sensitive aktiftir.
@@ -197,12 +206,16 @@ select * from kelimeler where regexp_like (kelime, 'i|m|e');
 select * from kelimeler where regexp_like (kelime, '[ime]');
 
 -- SORU 22: a veya s ile başlayan kelimelerin tüm bilgilerini listeleyiniz.
-select * from kelimeler where regexp_like (kelia|s);
+select * from kelimeler where regexp_like (kelime, '^a|^s');
+select * from kelimeler where regexp_like (kelime, '^[a|s]');
 
 -- SORU 23: Icerisinde en az 2 adet oo barindiran kelimelerin tüm bilgilerini listeleyiniz.
-
+select * from kelimeler where regexp_like (kelime, '[o][o]');
+select * from kelimeler where regexp_like (kelime, '[o]{2}');
 
 -- SORU 24: Icerisinde en az 4 adet oooo barıdıran kelimelerin tüm bilgilerini listeleyiniz.
+select * from kelimeler where regexp_like (kelime, '[o][o][o][o]');
+select * from kelimeler where regexp_like (kelime, '[o]{4}');
 
 -- SORU 25: Ilk harfi s veya b , 3. harfi l olan ve 5 harfli olan kelimelerin kucuk harfe dikkat ederek listeleyiniz.
-
+select * from kelimeler where regexp_like (kelime, '[s|b][a-z0-9]l[a-z0-9][a-z0-9]' , 'c');

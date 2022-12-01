@@ -74,6 +74,11 @@ select * from kisiler limit 10,2;   -- 10. dan sonra 2 tanesini al
 select * from kisiler order by maas desc limit 3;
 
 
+/*   -- Oracle SQL cozumu
+	select * from kisiler order by maas desc fetch next 3 only;
+*/
+
+
 -- MAAŞ'a göre sıralamada(buyukten kucuge) 4., 5. ve 6. kişilerin bilgilerini listeleyen sorguyu yazınız.
 
 select * from kisiler order by maas desc;
@@ -81,6 +86,14 @@ select * from kisiler order by maas desc;
 -- 335678901	Mine	Sezgin	5200	Gaziantep
 -- 344678901	Mine	Yasa	5000	Ankara
 -- 224567890	Veli	Nar		4890	Samsun
+
+
+/*   -- Oracle SQL cozumu
+	select * from kisiler order by maas desc
+    OFFSET 3 ROWS     				--> ilk 3 kaydi atlar
+    FETCH NEXT 3 ROWS ONLY;  		--> sonraki 3 kisiyi getirir
+*/
+
 
 select * from kisiler order by maas desc limit 3,3;   -- 3.den sonra 3 tanesini al
 

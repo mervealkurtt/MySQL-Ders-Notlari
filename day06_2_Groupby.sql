@@ -127,20 +127,33 @@ select * from manav;
 
 -- SORU10: kisi ismine ve urun adına göre satılan ürünlerin toplamını
 --  gruplandıran ve isime göre ters sırasıda listeyen sorguyu yazınız.
-
+select isim, urun_adi, sum(urun_miktari) as toplam_urun from manav group by isim, urun_adi order by isim desc;
 
 
 -- SORU11: Kişi ismine ve ürün adına göre (gruplayarak) satılan ürünleri toplamını bulan
 -- ve bu toplam değeri 3 ve fazlası olan kayıtları, toplam ürün miktarına göre büyükten küçüğe listeleyiniz.
+select isim, urun_adi, sum(urun_miktari) as toplam_urun from manav group by isim, urun_adi
+having toplam_urun >= 3 order by toplam_urun desc;
+
+
+
+
+-- Aggregate ile kullanilan bir degiskeni (toplam_urun) 'where' e baglayamayiz. Bu nedenle ;
+-- NOT : Eger aggregate (AVG(),COUNT(),MAX(),MIN() ve SUM()) fonksiyon kullanilirsa
+-- group by'dan sonra 'where' yerine 'having' kullanilmalidir.
+
 
 
 
 -- SORU12: Satılan urun_adi'na göre gruplayarak MAX ürün sayılarını sıralayarak listeleyen sorgu yazınız.
 -- NOT: Sorgu sadece MAX urun_miktari MIN urun_miktari na eşit olmayan kayıtları listelemelidir.
+select urun_adi, max(urun_miktari) from manav group by urun_adi 
+having max(urun_miktari) <> min(urun_miktari) order by max(urun_miktari);
 
 
-
-
+-- NOT : ikisi de kullanilabilir
+-- SQL'de degil				-->  <>
+-- Programlamada degil		-->  !=
 
 
 
@@ -151,22 +164,24 @@ select * from manav;
 	DISTINCT , bir sorgu ifadesinde benzer olan satırları filtrelemek için kullanılır.
     Seçilen sütun yada sütunlar icin benzersiz veri içeren satırlar oluşturmaya yarar.
 	
-	SYTAX
-    -----
+	SYTAX ;
     SELECT DISTINCT sütun_adı1, sütun_adı2 ...
     FROM tablo_adı;
 ======================================================================================= */
-​
+
+select * from manav;
+
 -- Satılan meyve türlerinin sayısını listeleyen sorgu
-​
-​
-​
+select distinct urun_adi from manav;
+
+
 -- Satılan farklı meyve türlerinin sayısını listeleyen sorgu
-​
-​
--- satılan meyve + isimleri farklı olanları listeleyen sorgu
-​
-​
-​
+select count(distinct urun_adi) from manav;
+
+
+-- satılan meyve + satin alan isimleri farklı olanları listeleyen sorgu
+select distinct urun_adi, isim from manav;
+
+
 -- satılan meyvelerin urun_miktarlarının benzersiz olanlarının toplamlarını listeleyen sorgu
-​
+select sum(distinct urun_miktari) from manav;

@@ -131,15 +131,20 @@ select * from personel_bilgi;
   maasini, personel_bilgi tablosundan da (id ilk 3 hanesiyle kaydolmuş=123)
   tel ve cocuk sayisini yazdirin  
 ------------------------------------------------------------------------------*/    
-select sehir, maas from personel where id = '123456789';
+-- select sehir, maas from personel where id = '123456789';
+-- select tel, cocuk_sayisi from personel_bilgi where id = '123';
+
+select sehir as sehir_tel, maas as maas_sayisi from personel where id = '123456789'union
 select tel, cocuk_sayisi from personel_bilgi where id = '123';
 
-select sehir, maas from personel where id = '123456789'union
-select tel, cocuk_sayisi from personel_bilgi where id = '123';
+
 /* -----------------------------------------------------------------------------
   SORU7: Personel tablosundan Istanbul veya Ankara’da calisanlarin id’lerini
  ve Personel_bilgi tablosundan 2 veya 3 cocugu olanlarin id lerini sorgulayiniz.
 ------------------------------------------------------------------------------*/
+-- select id from personel where sehir in('Istanbul', 'Ankara');
+-- select id from personel_bilgi where cocuk_sayisi in(2, 3);
 
-
+select id from personel where sehir in('Istanbul', 'Ankara') union
+select id from personel_bilgi where cocuk_sayisi in(2, 3);
 
